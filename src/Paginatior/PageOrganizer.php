@@ -55,8 +55,9 @@ class PageOrganizer {
         if ($this->pieces == null) {
             return;
         }
-        if (($this->current >= 0) && ($this->current < ($this->pagination - 1))) {
-            return $this->pieces[$this->current];
+        // 正常情况下，得到的current总是在 1 - $pagination 之间；
+        if (($this->current >= 1) && ($this->current < ($this->pagination))) {
+            return $this->pieces[$this->current - 1];
         } else {
             return $this->pieces[0];
         }
@@ -75,7 +76,8 @@ class PageOrganizer {
     }
 
     /**
-     * 计算页数
+     * 计算页数并返回。
+     * 在包含数据的情况下，返回值总是大于等于1的整数；
      * @return void
      */
     private function setPagination(): void {
@@ -89,6 +91,7 @@ class PageOrganizer {
 
     /**
      * 对查询结果进行分页，并返回分页后的数组数据。
+     * 注意：这个结果数组的索引是从0开始的；
      * 
      * @param Paginator $paginator
      * @param int $per
