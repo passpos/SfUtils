@@ -39,7 +39,7 @@ class PageOrganizer {
             self::$po = new PageOrganizer();
             self::$po->query = $query;
             self::$po->paginator = new Paginator($query, $fetchJoinCollection);
-            self::$po->current = $pageNum - 1;
+            self::$po->current = $pageNum;
             self::$po->per = $avg;
             self::$po->setPagination();
             self::$po->setPieces();
