@@ -45,28 +45,32 @@ class PageOrganizer {
      * @return int 
      */
     public function getPagination() {
-        return self::$po->pagination;
-    }
-
-    private function setPagination(): void {
-        $max = self::$po->paginator->count();
-        self::$po->pagination = $max / self::$po->per;
-    }
-
-    function getPieces(): array {
-        return self::$po->pieces;
+        return $this->po->pagination;
     }
 
     /**
-     * 对查询结果进行分页。
+     * 计算页数
+     * @return void
+     */
+    private function setPagination(): void {
+        $max = $this->po->paginator->count();
+        $this->po->pagination = $max / $this->po->per;
+    }
+
+    function getPieces(): array {
+        return $this->po->pieces;
+    }
+
+    /**
+     * 对查询结果进行分页，并返回分页后的数组数据。
      * 
      * @param Paginator $paginator
      * @param int $per
      * @return array 返回分页后的数组数据；
      */
     private function setPieces() {
-        $all = iterator_to_array(self::$po->paginator);
-        self::$po->pieces = array_chunk($all, self::$po->per);
+        $all = iterator_to_array($this->po->paginator);
+        $this->po->pieces = array_chunk($all, $this->po->per);
     }
 
     /**
@@ -76,10 +80,10 @@ class PageOrganizer {
      * @return array
      */
     private function setCurrentPage() {
-        if ((self::$po->current >= 0) && (self::$po->current < (self::$po->pagination - 1))) {
-            return self::$po->pieces[self::$po->current];
+        if (($this->po->current >= 0) && ($this->po->current < ($this->po->pagination - 1))) {
+            return $this->po->pieces[$this->po->current];
         } else {
-            return self::$po->pieces[0];
+            return $this->po->pieces[0];
         }
     }
 
@@ -89,8 +93,8 @@ class PageOrganizer {
      * @return array
      */
     public function getCurrentPage(int $currentPage) {
-        if (($currentPage >= 1) < ($currentPage < self::$po->pagination)) {
-            return self::$po->pieces[$currentPage];
+        if (($currentPage >= 1) < ($currentPage < $this->po->pagination)) {
+            return $this->po->pieces[$currentPage];
         } else {
             return PageOrganizer::$po->pieces[0];
         }
