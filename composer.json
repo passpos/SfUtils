@@ -1,0 +1,21 @@
+{
+    "name": "passpos/sf-utils",
+    "description": "SfUtils is a toolset for Symfony.",
+    "license": "Apache-2.0",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "passpos",
+            "email": "paiap@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "doctrine/migrations": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SfUtils\\": "src"
+        }
+    }
+}
