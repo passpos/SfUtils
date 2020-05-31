@@ -18,11 +18,11 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class PageOrganizer {
 
     private static PageOrganizer $po;
-    private Paginator $paginator;
-    private int $pagination;
-    private array $pieces;
-    private int $current;
-    private int $per;
+    private Paginator $paginator = null;
+    private int $pagination = 0;
+    private array $pieces = [];
+    private int $current = 0;
+    private int $per = 10;
 
     public static function paginate(Paginator $doctrinePaginator, int $pageNum, int $avg) {
         if (self::$po == null) {
@@ -45,7 +45,7 @@ class PageOrganizer {
      * @return int 
      */
     public function getPagination() {
-        return $this->pagination;
+        return $pagination;
     }
 
     /**
@@ -53,12 +53,12 @@ class PageOrganizer {
      * @return void
      */
     private function setPagination(): void {
-        $max = $this->paginator->count();
-        $this->pagination = $max / $this->po->per;
+        $max = $paginator->count();
+        $pagination = $max / $per;
     }
 
     function getPieces(): array {
-        return $this->po->pieces;
+        return $po->pieces;
     }
 
     /**
@@ -69,8 +69,8 @@ class PageOrganizer {
      * @return array 返回分页后的数组数据；
      */
     private function setPieces() {
-        $all = iterator_to_array($this->paginator);
-        $this->pieces = array_chunk($all, $this->per);
+        $all = iterator_to_array($paginator);
+        $pieces = array_chunk($all, $per);
     }
 
     /**
@@ -80,10 +80,10 @@ class PageOrganizer {
      * @return array
      */
     private function setCurrentPage() {
-        if (($this->current >= 0) && ($this->current < ($this->pagination - 1))) {
-            return $this->pieces[$this->current];
+        if (($current >= 0) && ($current < ($pagination - 1))) {
+            return $pieces[$current];
         } else {
-            return $this->pieces[0];
+            return $pieces[0];
         }
     }
 
@@ -93,10 +93,10 @@ class PageOrganizer {
      * @return array
      */
     public function getCurrentPage(int $currentPage) {
-        if (($currentPage >= 1) < ($currentPage < $this->pagination)) {
-            return $this->pieces[$currentPage];
+        if (($currentPage >= 1) < ($currentPage < $pagination)) {
+            return $pieces[$currentPage];
         } else {
-            return $this->pieces[0];
+            return $pieces[0];
         }
     }
 
