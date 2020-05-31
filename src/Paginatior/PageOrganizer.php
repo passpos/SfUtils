@@ -24,7 +24,7 @@ class PageOrganizer {
     private int $current = 0;
     private int $per = 10;
 
-    public static function paginate(Paginator $doctrinePaginator, int $pageNum, int $avg) {
+    public static function getPageOrganizer(Paginator $doctrinePaginator, int $pageNum, int $avg) {
         if (self::$po == null) {
             self::$po = new PageOrganizer();
             self::$po->paginator = $doctrinePaginator;
@@ -33,7 +33,14 @@ class PageOrganizer {
             self::$po->setPagination();
             self::$po->setPieces();
         }
-        return self::$po->setCurrentPage();
+        return self::$po;
+    }
+
+    public function paginate() {
+        if ($pieces == null) {
+            return;
+        }
+        return setCurrentPage();
     }
 
     /**
@@ -58,7 +65,7 @@ class PageOrganizer {
     }
 
     public function getPieces(): array {
-        return $po->pieces;
+        return $pieces;
     }
 
     /**
