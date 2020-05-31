@@ -21,13 +21,10 @@ class PageOrganizer {
     private static $po = null;
     private $query = null;
     private $paginator = null;
-//    private static PageOrganizer $po;
-//    private Query $query = null;
-//    private Paginator $paginator = null;
-    private int $pagination = 0;
-    private array $pieces = [];
-    private int $current = 0;
-    private int $per = 10;
+    private $pagination = 0;
+    private $pieces = [];
+    private $current = 0;
+    private $per = 10;
 
     /**
      * 
@@ -37,7 +34,7 @@ class PageOrganizer {
      * @param bool $fetchJoinCollection
      * @return PageOrganizer
      */
-    public static function getPageOrganizer(Query $query, int $pageNum, int $avg, bool $fetchJoinCollection) {
+    public static function getPageOrganizer(Query $query, int $pageNum, int $avg, bool $fetchJoinCollection): PageOrganizer {
         if (self::$po == null) {
             self::$po = new PageOrganizer();
             self::$po->query = $query;
@@ -73,7 +70,7 @@ class PageOrganizer {
      * @param int $avg
      * @return int 
      */
-    public function getPagination() {
+    public function getPagination(): int {
         return $pagination;
     }
 
