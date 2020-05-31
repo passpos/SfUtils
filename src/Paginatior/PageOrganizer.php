@@ -56,7 +56,7 @@ class PageOrganizer {
             return;
         }
         // 正常情况下，得到的current总是在 1 - $pagination 之间；
-        if (($this->current >= 1) && ($this->current < ($this->pagination))) {
+        if (($this->current >= 1) && ($this->current <= ($this->pagination))) {
             return $this->pieces[$this->current - 1];
         } else {
             return $this->pieces[0];
