@@ -36,11 +36,19 @@ class PageOrganizer {
         return self::$po;
     }
 
+    /**
+     * 返回一页（当前页）数据
+     * @return array
+     */
     public function paginate() {
         if ($pieces == null) {
             return;
         }
-        return setCurrentPage();
+        if (($current >= 0) && ($current < ($pagination - 1))) {
+            return $pieces[$current];
+        } else {
+            return $pieces[0];
+        }
     }
 
     /**
@@ -78,20 +86,6 @@ class PageOrganizer {
     private function setPieces() {
         $all = iterator_to_array($paginator);
         $pieces = array_chunk($all, $per);
-    }
-
-    /**
-     * 返回一页（当前页）数据
-     * 
-     * @param int $current
-     * @return array
-     */
-    private function setCurrentPage() {
-        if (($current >= 0) && ($current < ($pagination - 1))) {
-            return $pieces[$current];
-        } else {
-            return $pieces[0];
-        }
     }
 
     /**
