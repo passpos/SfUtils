@@ -24,10 +24,10 @@ class PageOrganizer {
     private int $current = 0;
     private int $per = 10;
 
-    public static function getPageOrganizer(Paginator $doctrinePaginator, int $pageNum, int $avg) {
+    public static function getPageOrganizer(Query $query, int $pageNum, int $avg, bool $fetchJoinCollection) {
         if (self::$po == null) {
             self::$po = new PageOrganizer();
-            self::$po->paginator = $doctrinePaginator;
+            self::$po->paginator = new Paginator($query, $fetchJoinCollection);
             self::$po->current = $pageNum - 1;
             self::$po->per = $avg;
             self::$po->setPagination();
