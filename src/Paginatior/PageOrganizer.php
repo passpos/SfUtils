@@ -57,7 +57,7 @@ class PageOrganizer {
         $pagination = $max / $per;
     }
 
-    function getPieces(): array {
+    public function getPieces(): array {
         return $po->pieces;
     }
 
