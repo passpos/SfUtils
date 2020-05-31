@@ -2,7 +2,7 @@
     "name": "passpos/sf-utils",
     "description": "SfUtils is a toolset for Symfony.",
     "license": "Apache-2.0",
-    "minimum-stability": "dev-master",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "passpos",
