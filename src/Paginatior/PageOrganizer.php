@@ -23,14 +23,15 @@ class PageOrganizer {
     private static int $current;
     private static int $per;
 
-    public function paginate(Paginator $doctrinePaginator, int $currentPage, int $avg) {
+    public function paginate(Paginator $doctrinePaginator, int $pageNum, int $avg) {
         if (self::$paginator == null) {
             self::$paginator = $doctrinePaginator;
-            self::$current = $currentPage - 1;
+            self::$current = $pageNum - 1;
             self::$per = $avg;
             self::setPagination();
             self::setPieces();
         }
+        return self::setCurrentPage();
     }
 
     /**
