@@ -18,9 +18,12 @@ use Doctrine\ORM\Query;
  */
 class PageOrganizer {
 
-    private static PageOrganizer $po;
-    private Query $query = null;
-    private Paginator $paginator = null;
+    private static $po = null;
+    private $query = null;
+    private $paginator = null;
+//    private static PageOrganizer $po;
+//    private Query $query = null;
+//    private Paginator $paginator = null;
     private int $pagination = 0;
     private array $pieces = [];
     private int $current = 0;
