@@ -56,7 +56,7 @@ class PageOrganizer {
             return;
         }
         if (($this->current >= 0) && ($this->current < ($this->pagination - 1))) {
-            return $this->pieces[$current];
+            return $this->pieces[$this->current];
         } else {
             return $this->pieces[0];
         }
