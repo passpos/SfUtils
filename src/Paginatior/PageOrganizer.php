@@ -45,7 +45,7 @@ class PageOrganizer {
      * @return int 
      */
     public function getPagination() {
-        return $this->po->pagination;
+        return $this->pagination;
     }
 
     /**
@@ -53,8 +53,8 @@ class PageOrganizer {
      * @return void
      */
     private function setPagination(): void {
-        $max = $this->po->paginator->count();
-        $this->po->pagination = $max / $this->po->per;
+        $max = $this->paginator->count();
+        $this->pagination = $max / $this->po->per;
     }
 
     function getPieces(): array {
@@ -69,8 +69,8 @@ class PageOrganizer {
      * @return array 返回分页后的数组数据；
      */
     private function setPieces() {
-        $all = iterator_to_array($this->po->paginator);
-        $this->po->pieces = array_chunk($all, $this->po->per);
+        $all = iterator_to_array($this->paginator);
+        $this->pieces = array_chunk($all, $this->per);
     }
 
     /**
@@ -80,10 +80,10 @@ class PageOrganizer {
      * @return array
      */
     private function setCurrentPage() {
-        if (($this->po->current >= 0) && ($this->po->current < ($this->po->pagination - 1))) {
-            return $this->po->pieces[$this->po->current];
+        if (($this->current >= 0) && ($this->current < ($this->pagination - 1))) {
+            return $this->pieces[$this->current];
         } else {
-            return $this->po->pieces[0];
+            return $this->pieces[0];
         }
     }
 
@@ -93,10 +93,10 @@ class PageOrganizer {
      * @return array
      */
     public function getCurrentPage(int $currentPage) {
-        if (($currentPage >= 1) < ($currentPage < $this->po->pagination)) {
-            return $this->po->pieces[$currentPage];
+        if (($currentPage >= 1) < ($currentPage < $this->pagination)) {
+            return $this->pieces[$currentPage];
         } else {
-            return PageOrganizer::$po->pieces[0];
+            return $this->pieces[0];
         }
     }
 
