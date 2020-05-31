@@ -102,17 +102,4 @@ class PageOrganizer {
         $this->pieces = array_chunk($all, $this->per);
     }
 
-    /**
-     * 返回一页（当前页）数据
-     * @param int $currentPage
-     * @return array
-     */
-    public function getCurrentPage(int $currentPage) {
-        if (($currentPage >= 1) < ($currentPage < $this->pagination)) {
-            return $this->pieces[$currentPage];
-        } else {
-            return $this->pieces[0];
-        }
-    }
-
 }
