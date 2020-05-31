@@ -17,21 +17,21 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class PageOrganizer {
 
-    private static Paginator $paginator;
-    private static int $pagination;
-    private static array $pieces;
-    private static int $current;
-    private static int $per;
+    private Paginator $paginator;
+    private int $pagination;
+    private array $pieces;
+    private int $current;
+    private int $per;
 
     public function paginate(Paginator $doctrinePaginator, int $pageNum, int $avg) {
-        if (self::$paginator == null) {
-            self::$paginator = $doctrinePaginator;
-            self::$current = $pageNum - 1;
-            self::$per = $avg;
-            self::setPagination();
-            self::setPieces();
+        if ($this->paginator == null) {
+            $this->paginator = $doctrinePaginator;
+            $this->current = $pageNum - 1;
+            $this->per = $avg;
+            $this->setPagination();
+            $this->setPieces();
         }
-        return self::setCurrentPage();
+        return $this->setCurrentPage();
     }
 
     /**
@@ -42,17 +42,17 @@ class PageOrganizer {
      * @param int $avg
      * @return int 
      */
-    public static function getPagination() {
-        return self::$pagination;
+    public function getPagination() {
+        return $this->pagination;
     }
 
-    private static function setPagination(): void {
-        $max = self::$paginator->count();
-        self::$pagination = $max / self::$per;
+    private function setPagination(): void {
+        $max = $this->paginator->count();
+        $this->pagination = $max / $this->per;
     }
 
-    static function getPieces(): array {
-        return self::$pieces;
+    function getPieces(): array {
+        return $this->pieces;
     }
 
     /**
@@ -62,9 +62,9 @@ class PageOrganizer {
      * @param int $per
      * @return array 返回分页后的数组数据；
      */
-    private static function setPieces() {
-        $all = iterator_to_array(self::$paginator);
-        self::$pieces = array_chunk($all, self::$per);
+    private function setPieces() {
+        $all = iterator_to_array($this->paginator);
+        $this->pieces = array_chunk($all, $this->per);
     }
 
     /**
@@ -73,11 +73,11 @@ class PageOrganizer {
      * @param int $current
      * @return array
      */
-    private static function setCurrentPage() {
-        if ((self::current >= 0) && (self::$current < (self::$pagination - 1))) {
-            return self::$pieces[$current];
+    private function setCurrentPage() {
+        if (($this->current >= 0) && ($this->current < ($this->pagination - 1))) {
+            return $this->pieces[$this->current];
         } else {
-            return self::$pieces[0];
+            return $this->pieces[0];
         }
     }
 
@@ -86,11 +86,11 @@ class PageOrganizer {
      * @param int $currentPage
      * @return array
      */
-    public static function getCurrentPage(int $currentPage) {
-        if (($currentPage >= 1) < ($currentPage < self::$pagination)) {
-            return self::$pieces[$currentPage];
+    public function getCurrentPage(int $currentPage) {
+        if (($currentPage >= 1) < ($currentPage < $this->pagination)) {
+            return $this->pieces[$currentPage];
         } else {
-            return self::$pieces[0];
+            return $this->pieces[0];
         }
     }
 
