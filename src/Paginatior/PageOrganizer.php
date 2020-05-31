@@ -9,6 +9,7 @@
 namespace SfUtils\Paginatior;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Query;
 
 /**
  * Description of PageOrganizer
@@ -18,6 +19,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class PageOrganizer {
 
     private static PageOrganizer $po;
+    private Query $query = null;
     private Paginator $paginator = null;
     private int $pagination = 0;
     private array $pieces = [];
@@ -27,6 +29,7 @@ class PageOrganizer {
     public static function getPageOrganizer(Query $query, int $pageNum, int $avg, bool $fetchJoinCollection) {
         if (self::$po == null) {
             self::$po = new PageOrganizer();
+            self::$po->query = $query;
             self::$po->paginator = new Paginator($query, $fetchJoinCollection);
             self::$po->current = $pageNum - 1;
             self::$po->per = $avg;
