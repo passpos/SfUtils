@@ -82,7 +82,7 @@ class PageOrganizer {
      */
     private function setPagination(): void {
         $max = $this->paginator->count();
-        $this->pagination = $max / $this->per;
+        $this->pagination = ceil($max / $this->per);
     }
 
     public function getPieces(): array {
