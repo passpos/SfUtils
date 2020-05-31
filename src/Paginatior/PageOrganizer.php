@@ -26,6 +26,14 @@ class PageOrganizer {
     private int $current = 0;
     private int $per = 10;
 
+    /**
+     * 
+     * @param Query $query
+     * @param int $pageNum
+     * @param int $avg
+     * @param bool $fetchJoinCollection
+     * @return PageOrganizer
+     */
     public static function getPageOrganizer(Query $query, int $pageNum, int $avg, bool $fetchJoinCollection) {
         if (self::$po == null) {
             self::$po = new PageOrganizer();
