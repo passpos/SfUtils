@@ -25,8 +25,8 @@ class PageOrganizer {
     private int $per;
 
     public static function paginate(Paginator $doctrinePaginator, int $pageNum, int $avg) {
-        self::$po = new PageOrganizer();
-        if (self::$po->paginator == null) {
+        if (self::$po == null) {
+            self::$po = new PageOrganizer();
             self::$po->paginator = $doctrinePaginator;
             self::$po->current = $pageNum - 1;
             self::$po->per = $avg;
