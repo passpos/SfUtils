@@ -17,21 +17,23 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class PageOrganizer {
 
+    private static PageOrganizer $po;
     private Paginator $paginator;
     private int $pagination;
     private array $pieces;
     private int $current;
     private int $per;
 
-    public function paginate(Paginator $doctrinePaginator, int $pageNum, int $avg) {
-        if ($this->paginator == null) {
-            $this->paginator = $doctrinePaginator;
-            $this->current = $pageNum - 1;
-            $this->per = $avg;
-            $this->setPagination();
-            $this->setPieces();
+    public static function paginate(Paginator $doctrinePaginator, int $pageNum, int $avg) {
+        self::$po = new PageOrganizer();
+        if (self::$po->paginator == null) {
+            self::$po->paginator = $doctrinePaginator;
+            self::$po->current = $pageNum - 1;
+            self::$po->per = $avg;
+            self::$po->setPagination();
+            self::$po->setPieces();
         }
-        return $this->setCurrentPage();
+        return self::$po->setCurrentPage();
     }
 
     /**
@@ -43,16 +45,16 @@ class PageOrganizer {
      * @return int 
      */
     public function getPagination() {
-        return $this->pagination;
+        return self::$po->pagination;
     }
 
     private function setPagination(): void {
-        $max = $this->paginator->count();
-        $this->pagination = $max / $this->per;
+        $max = self::$po->paginator->count();
+        self::$po->pagination = $max / self::$po->per;
     }
 
     function getPieces(): array {
-        return $this->pieces;
+        return self::$po->pieces;
     }
 
     /**
@@ -63,8 +65,8 @@ class PageOrganizer {
      * @return array 返回分页后的数组数据；
      */
     private function setPieces() {
-        $all = iterator_to_array($this->paginator);
-        $this->pieces = array_chunk($all, $this->per);
+        $all = iterator_to_array(self::$po->paginator);
+        self::$po->pieces = array_chunk($all, self::$po->per);
     }
 
     /**
@@ -74,10 +76,10 @@ class PageOrganizer {
      * @return array
      */
     private function setCurrentPage() {
-        if (($this->current >= 0) && ($this->current < ($this->pagination - 1))) {
-            return $this->pieces[$this->current];
+        if ((self::$po->current >= 0) && (self::$po->current < (self::$po->pagination - 1))) {
+            return self::$po->pieces[self::$po->current];
         } else {
-            return $this->pieces[0];
+            return self::$po->pieces[0];
         }
     }
 
@@ -87,10 +89,10 @@ class PageOrganizer {
      * @return array
      */
     public function getCurrentPage(int $currentPage) {
-        if (($currentPage >= 1) < ($currentPage < $this->pagination)) {
-            return $this->pieces[$currentPage];
+        if (($currentPage >= 1) < ($currentPage < self::$po->pagination)) {
+            return self::$po->pieces[$currentPage];
         } else {
-            return $this->pieces[0];
+            return PageOrganizer::$po->pieces[0];
         }
     }
 
