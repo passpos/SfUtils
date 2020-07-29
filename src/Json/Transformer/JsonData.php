@@ -24,7 +24,7 @@ namespace SfUtils\Json\Transformer;
 /**
  * Interconversion between JSON and Array.
  *
- * @author realpai <paiap@outlook.com>
+ * @author passpos <passpos@outlook.com>
  */
 class JsonData {
 
