@@ -14,7 +14,7 @@ use Doctrine\ORM\Query;
 /**
  * Description of PageOrganizer
  *
- * @author passpos <paiap@outlook.com>
+ * @author realpai <paiap@outlook.com>
  */
 class PageOrganizer {
 
